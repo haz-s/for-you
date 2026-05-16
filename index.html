@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message For You</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffe5ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-height: 90vh;
+        }
+
+        /* Envelope Styling */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background-color: #f08080;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            cursor: pointer;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            z-index: 2;
+        }
+
+        /* Envelope Flap */
+        .envelope-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            z-index: 3;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #cd5c5c;
+            transform-origin: top;
+            transition: transform 0.4s ease-in-out;
+        }
+
+        /* Envelope Front Pockets */
+        .envelope-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid #e9967a;
+            border-right: 150px solid #e9967a;
+            border-top: 100px solid transparent;
+            border-bottom: 100px solid #e9967a;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            z-index: 4;
+        }
+
+        .heart {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #ff4d6d;
+            z-index: 5;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover .heart {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .click-me {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #ff4d6d;
+            font-weight: bold;
+            white-space: nowrap;
+            letter-spacing: 1px;
+        }
+
+        /* Open State Animations */
+        .envelope-wrapper.open {
+            transform: translateY(100px) scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+        }
+
+        /* Actual Letter Box */
+        .letter-box {
+            position: relative;
+            max-width: 550px;
+            width: 90%;
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1;
+            display: none;
+        }
+
+        .letter-box.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        .letter-text {
+            color: #4a4a4a;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .letter-text p {
+            margin-bottom: 18px;
+            text-indent: 20px;
+        }
+
+        .signature {
+            margin-top: 25px;
+            text-align: right;
+            font-style: italic;
+            font-weight: bold;
+            color: #ff4d6d;
+            font-size: 1.1rem;
+        }
+
+        /* Hidden Music Player Container */
+        #music-player {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Envelope -->
+        <div class="envelope-wrapper" id="envelope" onclick="openLetter()">
+            <div class="heart">❤️</div>
+            <div class="click-me">CLICK TO OPEN</div>
+        </div>
+
+        <!-- The Virtual Letter -->
+        <div class="letter-box" id="letter">
+            <div class="letter-text">
+                <p>I just wanted to take a moment to write this to remind you how much you mean to me. Even on my busiest days, you always got me thinking of you.</p>
+                
+                <p>I love everything about you, my love; i love how your face lights up every time you smile, i love how your eyes bloom and shine throughout the roughest day we've had, i love how you always allow me to feel warmth, warmth that i never felt from anything else, the way you support me, the way you always try your best to tell me if i did something wrong.</p>
+                
+                <p>You bring so much joy to my life to the point that i was smiling throughout my exam because i remembered some funny thing we did or how i was "rage baiting" you and it's cute seeing your cheeks puffed up and how you try to play it cool. Thank you for simply being you, and for loving me the way you do.</p>
+                
+                <p>There were never the times that i thought of you as lacking or i felt that i am missing something because you as a whole, just you makes me feel like im on top of the world, you know. I feel that with you by my side everything would be alright, that's how much of an impact you make by just being together with me.</p>
+                
+                <p>I'm really sorry about making you mad sometimes but i can't help it, there's something in you that makes my heart skip a beat and makes me feel like there's butterflies in my stomach. I'm really thankful on everything that you did for me, and as such i plan to do better and make you the happiest. I love you to the moon and back, and I can't wait to see you soon.</p>
+                
+                <div class="signature">I love you always,</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Iframe to load YouTube Audio safely -->
+    <div id="music-player"></div>
+
+    <script>
+        function openLetter() {
+            const envelope = document.getElementById('envelope');
+            const letter = document.getElementById('letter');
+            
+            envelope.classList.add('open');
+            
+            setTimeout(() => {
+                letter.classList.add('show');
+                playMusic();
+            }, 400);
+        }
+
+        function playMusic() {
+            // Embeds 'blue' by yung kai via YouTube API configuration
+            // enablejsapi=1 allows for volume controls if needed, autoplay=1 kicks it off, and loop=1 keeps it going
+            const playerDiv = document.getElementById('music-player');
+            playerDiv.innerHTML = `<iframe width="100" height="100" src="https://www.youtube.com/embed/MHCsrKA9gh8?autoplay=1&loop=1&playlist=MHCsrKA9gh8" allow="autoplay"></iframe>`;
+        }
+    </script>
+
+</body>
+</html>
